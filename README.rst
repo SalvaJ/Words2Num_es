@@ -10,3 +10,23 @@ convertir numeros cardinales en texto en Español a su representación en cifras
 
 
 
+Example:
+========
+.. code-block:: pycon
+    >>> import Words2Num_es as w2n
+    >>> w2n.words2num("Un Millón trescientos ochenta y Siete Mil Ochocientos VEIN
+    TITRÉS")
+    ['veintitrés', 'ochocientos', 'mil', 'siete', 'y', 'ochenta', 'trescientos', 'mi
+    llón', 'un']
+    veintitrés
+    ochocientos
+    mil
+    siete
+    y
+    ochenta
+    trescientos
+    millón
+    un
+    {0: 823, 1: 387, 2: 1}
+    1387823
+    >>>
