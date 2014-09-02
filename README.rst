@@ -12,7 +12,9 @@ convertir numeros cardinales en texto en Español a su representación en cifras
 
 Example:
 ========
+
 .. code-block:: pycon
+
     >>> import Words2Num_es as w2n
     >>> w2n.words2num("Un Millón trescientos ochenta y Siete Mil Ochocientos VEIN
     TITRÉS")
