@@ -97,7 +97,7 @@ class MyExcepcion(Exception):
         Exception.__init__(self, msg)
 
 
-def text2num(string_to_convert):
+def words2num(string_to_convert):
     """
     .. py:function:: text2num(string_to_convert)
         Main function to parse the text numbers.
@@ -154,7 +154,7 @@ def text2num(string_to_convert):
                 raise MyExcepcion("Error en -%s-, Palabra Desconocida!" % p)
         return cifra_grupo
 
-    lista_cifra_texto = string_to_convert.split(" ")
+    lista_cifra_texto = string_to_convert.lower().split(" ")
     lista_cifra_texto.reverse()
     print(lista_cifra_texto)    # debug purpose
 
@@ -173,5 +173,5 @@ def text2num(string_to_convert):
     return cifra_numero
 
 if __name__ == "__main__":
-    cifra_texto = input("Introduzca la cantidad en texto: ").lower()
-    print(text2num(cifra_texto))
+    cifra_texto = input("Introduzca la cantidad en texto: ")
+    print(words2num(cifra_texto))
