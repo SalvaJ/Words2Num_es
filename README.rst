@@ -16,10 +16,8 @@ Example:
 .. code-block:: pycon
 
     >>> import Words2Num_es as w2n
-    >>> w2n.words2num("Un Millón trescientos ochenta y Siete Mil Ochocientos VEIN
-    TITRÉS")
-    ['veintitrés', 'ochocientos', 'mil', 'siete', 'y', 'ochenta', 'trescientos', 'mi
-    llón', 'un']
+    >>> w2n.words2num("Un Millón trescientos ochenta y Siete Mil Ochocientos VEINTITRÉS")
+    ['veintitrés', 'ochocientos', 'mil', 'siete', 'y', 'ochenta', 'trescientos', 'millón', 'un']
     veintitrés
     ochocientos
     mil
