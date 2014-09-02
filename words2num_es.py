@@ -99,7 +99,7 @@ class MyExcepcion(Exception):
 
 def words2num(string_to_convert):
     """
-    .. py:function:: text2num(string_to_convert)
+    .. py:function:: words2num(string_to_convert)
         Main function to parse the text numbers.
     :param str string_to_convert: (requiered) the phrase to parse.
     :return cifra_numero: the value of the whole phrase.
