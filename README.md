@@ -6,3 +6,9 @@ written in Spanish into its representation of integer number.
 
 
 Esta librería para Python es una implementación en Código Abierto (Licencia BSD) de una función para analizar y convertir numeros cardinales en texto en Español a su representación en cifras de número entero.
+
+
+Example
+=======
+
+.. code-block:: pycon
