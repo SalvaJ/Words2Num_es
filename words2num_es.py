@@ -154,7 +154,7 @@ def words2num(string_to_convert):
                 raise MyExcepcion("Error en -%s-, Palabra Desconocida!" % p)
         return cifra_grupo
 
-    lista_cifra_texto = string_to_convert.lower().split(" ")
+    lista_cifra_texto = string_to_convert.lower().split()
     lista_cifra_texto.reverse()
     print(lista_cifra_texto)    # debug purpose
 
@@ -177,7 +177,7 @@ if __name__ == "__main__":
     # Checking python version to use the correct input function
     if version_info[0] == 3:
         entrada = input
-    elif version_info[0] == 2:
+    else:
         entrada = raw_input
 
     cifra_texto = entrada("Introduzca la cantidad en texto: ")
