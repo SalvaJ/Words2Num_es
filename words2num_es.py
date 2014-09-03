@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# This library is a implementation of a function to parse and convert textual
-# numbers written in Spanish into their integer representations.
+# This library is a implementation of an algorithm to parse and convert
+# textual numbers written in Spanish into their integer representations.
 #
 # This code is open source according to the BSD (2 clause) License.
 #
@@ -85,13 +85,13 @@ conjuncion = {"y": 1}   # TODO handle "y" between "decenas" and "unidades"
 class MyExcepcion(Exception):
     """
     .. py:class:: MyExcepcion(Exception)
-        To raise exceptions when grammar error are found in string_to_convert
+        To raise exceptions when sintax error are found in string_to_convert
     """
     def __init__(self, msg):
         """
         .. py:method:: __init__(self, msg)
             Extend `Exception.__init__()` method
-        :param str msg: (requiered), the message of the error to display
+        :param str msg: (required), the message of the error to display
         :return none:
         """
         Exception.__init__(self, msg)
@@ -101,10 +101,10 @@ def words2num(string_to_convert):
     """
     .. py:function:: words2num(string_to_convert)
         Main function to parse the text numbers.
-    :param str string_to_convert: (requiered) the phrase to parse.
+    :param str string_to_convert: (required) the phrase to parse.
     :return cifra_numero: the value of the whole phrase.
     :rtype int:
-    :raise MyException: if grammar error or unknown word is found.
+    :raise MyException: if syntax error or unknown word is found.
     """
 
     def grupo(p):
@@ -114,7 +114,7 @@ def words2num(string_to_convert):
         :param str p: the word to evaluate
         :return cifra_grupo: the value in units of the group
         :rtype int:
-        :raise Exception: if incoherent grammar are used
+        :raise MyException: if syntax error or unknown word is found.
         """
         print(p)    # debug purpose
         nonlocal sw_grupo, cifra_grupo, cifra_total, indice_multiplos
@@ -128,25 +128,25 @@ def words2num(string_to_convert):
                 cifra_grupo = unidades[p]
                 sw_grupo += 0b0001
             else:
-                raise MyExcepcion("Error en -%s-, Gramática Incorrecta!" % p)
+                raise MyExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
         elif p in decenas_atomicos:
             if sw_grupo == 0:
                 cifra_grupo = decenas_atomicos[p]
                 sw_grupo += 0b0010
             else:
-                raise MyExcepcion("Error en -%s-, Gramática Incorrecta!" % p)
+                raise MyExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
         elif p in decenas:
             if sw_grupo < 0b0010:
                 cifra_grupo += decenas[p]
                 sw_grupo += 0b0100
             else:
-                raise MyExcepcion("Error en -%s-, Gramática Incorrecta!" % p)
+                raise MyExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
         elif p in centenas:
             if sw_grupo < 0b1000:
                 cifra_grupo += centenas[p]
                 sw_grupo += 0b1000
             else:
-                raise MyExcepcion("Error en -%s-, Gramática Incorrecta!" % p)
+                raise MyExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
         else:
             if p in conjuncion:
                 pass    # TODO handle "y" between "decenas" and "unidades"
@@ -173,5 +173,12 @@ def words2num(string_to_convert):
     return cifra_numero
 
 if __name__ == "__main__":
-    cifra_texto = input("Introduzca la cantidad en texto: ")
+    from sys import version_info
+    # Checking python version to use the correct input function
+    if version_info[0] == 3:
+        entrada = input
+    elif version_info[0] == 2:
+        entrada = raw_input
+
+    cifra_texto = entrada("Introduzca la cantidad en texto: ")
     print(words2num(cifra_texto))
