@@ -97,15 +97,36 @@ class MyExcepcion(Exception):
         Exception.__init__(self, msg)
 
 
-def words2num(string_to_convert):
+def words2num(string_to_convert, debug_mode=0):
     """
-    .. py:function:: words2num(string_to_convert)
+    .. py:function:: words2num(string_to_convert, debug_mode=0)
         Main function to parse the text numbers.
     :param str string_to_convert: (required) the phrase to parse.
+    :param int debug_mode: (optional) 0= no debug, 1= stdout, 2= log file
     :return cifra_numero: the value of the whole phrase.
     :rtype int:
     :raise MyException: if syntax error or unknown word is found.
     """
+
+    if debug_mode == 2:
+        import logging
+
+        FORMAT = '%(levelname)s %(message)s'
+        logging.basicConfig(filename='w2n_debug.log', level=logging.DEBUG, format=FORMAT)
+
+    def debug(func):
+        def _debug(msg):
+            if debug_mode == 1:
+                print(msg)
+                func(msg)   # For future uses
+            if debug_mode == 2:
+                logging.debug(msg)
+                func(msg)   # For future uses
+        return _debug
+
+    @debug
+    def echo(msg):
+        pass
 
     def grupo(p):
         """
@@ -116,7 +137,7 @@ def words2num(string_to_convert):
         :rtype int:
         :raise MyException: if syntax error or unknown word is found.
         """
-        print(p)    # debug purpose
+        echo(p)    # debug purpose
         nonlocal sw_grupo, cifra_grupo, cifra_total, indice_multiplos
         if p in multiplos:
             cifra_total[indice_multiplos] = cifra_grupo
@@ -156,7 +177,7 @@ def words2num(string_to_convert):
 
     lista_cifra_texto = string_to_convert.lower().split()
     lista_cifra_texto.reverse()
-    print(lista_cifra_texto)    # debug purpose
+    echo(lista_cifra_texto)    # debug purpose
 
     cifra_numero = 0
     cifra_total = {}
@@ -167,7 +188,7 @@ def words2num(string_to_convert):
     for palabra in lista_cifra_texto:
         grupo(palabra)
     cifra_total[indice_multiplos] = cifra_grupo
-    print(cifra_total)  # debug purpose
+    echo(cifra_total)  # debug purpose
     for i, j in cifra_total.items():
         cifra_numero += j * multiplicadores[i]
     return cifra_numero
@@ -181,4 +202,4 @@ if __name__ == "__main__":
         entrada = raw_input
 
     cifra_texto = entrada("Introduzca la cantidad en texto: ")
-    print(words2num(cifra_texto))
+    print(words2num(cifra_texto, debug_mode=1))
