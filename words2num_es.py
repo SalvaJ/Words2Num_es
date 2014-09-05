@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 # This library is a implementation of an algorithm to parse and convert
@@ -10,6 +10,7 @@
 
 
 unidades = {
+    "cero": 0,
     "un": 1, "uno": 1, "una": 1,
     "dos": 2,
     "tres": 3,
@@ -82,7 +83,7 @@ multiplicadores = {
 conjuncion = {"y": 1}   # TODO handle "y" between "decenas" and "unidades"
 
 
-class MyExcepcion(Exception):
+class MiExcepcion(Exception):
     """
     .. py:class:: MyExcepcion(Exception)
         To raise exceptions when sintax error are found in string_to_convert
@@ -149,30 +150,30 @@ def words2num(string_to_convert, debug_mode=0):
                 cifra_grupo = unidades[p]
                 sw_grupo += 0b0001
             else:
-                raise MyExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
+                raise MiExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
         elif p in decenas_atomicos:
             if sw_grupo == 0:
                 cifra_grupo = decenas_atomicos[p]
                 sw_grupo += 0b0010
             else:
-                raise MyExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
+                raise MiExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
         elif p in decenas:
             if sw_grupo < 0b0010:
                 cifra_grupo += decenas[p]
                 sw_grupo += 0b0100
             else:
-                raise MyExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
+                raise MiExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
         elif p in centenas:
             if sw_grupo < 0b1000:
                 cifra_grupo += centenas[p]
                 sw_grupo += 0b1000
             else:
-                raise MyExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
+                raise MiExcepcion("Error en -%s-, Sintáxis Incorrecta!" % p)
         else:
             if p in conjuncion:
                 pass    # TODO handle "y" between "decenas" and "unidades"
             else:
-                raise MyExcepcion("Error en -%s-, Palabra Desconocida!" % p)
+                raise MiExcepcion("Error en -%s-, Palabra Desconocida!" % p)
         return cifra_grupo
 
     lista_cifra_texto = string_to_convert.lower().split()
@@ -185,6 +186,7 @@ def words2num(string_to_convert, debug_mode=0):
     sw_multiplos = 0b0000   # TODO control the flow of thousands+
     cifra_grupo = 0
     sw_grupo = 0b0000
+
     for palabra in lista_cifra_texto:
         grupo(palabra)
     cifra_total[indice_multiplos] = cifra_grupo

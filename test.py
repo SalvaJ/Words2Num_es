@@ -1,8 +1,19 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
+# Pruebas unittest para la función words2num del módulo words2num_es
+
+""" Para generar las listas de números correctos tengo que utilizar algún
+módulo algoritmo número->texto ya hecho, candidatos:
+    Numerals.py de Chema Cortés
+    number_to_letter.py de AxiaCore (github)
+    savoirfairelinux/num2words (github)
+    netzsooc/Numbers_To_Words (github)
+"""
+
 import unittest
 import words2num_es as w2n
+import test_num2text as n2t     # Numerals.py de Chema Cortés
 
 
 class TestW2n(unittest.TestCase):
@@ -15,7 +26,15 @@ class TestW2n(unittest.TestCase):
             self.lista_correctos_femeninos =
             ...
         """
-        pass
+
+        self.lista_correctos_masculinos = [n2t.numerals(numero) for numero in range(0, 1000)]
+
+        self.lista_errores_palabras = [
+            "venticuatro",
+            "trenta",
+            "sietecientos",
+            "nuevecientos"
+        ]
 
     def tearDown(self):
         """
@@ -29,9 +48,10 @@ class TestW2n(unittest.TestCase):
         """
         Del 1 al (10^9)-1 en género masculino.
         Dado una lista de [[numero, texto], ...]
-            self.assertEqual(numero, w2n.words2num(texto, debug_mode=2))
+            self.assertEqual(numero, w2n.words2num(text, debug_mode=2))
         """
-        pass
+        for numero, frase in enumerate(self.lista_correctos_masculinos):
+            self.assertEqual(numero, w2n.words2num(frase, debug_mode=2))
 
     def test_correctos_femeninos(self):
         """
@@ -72,15 +92,16 @@ class TestW2n(unittest.TestCase):
         ejemplo:
             self.assertRaises(MyException, w2n.words2num("venticinco", debug_mode=2)
         """
-        pass
+        for palabra in self.lista_errores_palabras:
+            self.assertRaises(w2n.MiExcepcion, w2n.words2num, palabra, debug_mode=2)
 
     def test_errores_sintacticos_grupo(self):
         """
         Se levantan excepciones en caso de errores sintácticos en las
         construcciones de los grupos (1..999)
         ejemplo:
-            self.assertRaises(MyException, w2n.words2num("treinta y quince", debug_mode=2)
-            self.assertRaises(MyException, w2n.words2num("tres y quinientos", debug_mode=2)
+            self.assertRaises(MiExcepcion, w2n.words2num("treinta y quince", debug_mode=2)
+            self.assertRaises(MiExcepcion, w2n.words2num("tres y quinientos", debug_mode=2)
         """
         pass
 
@@ -89,7 +110,7 @@ class TestW2n(unittest.TestCase):
         Se levantan excepciones en caso de errores sintácticos en las
         construcciones de las magnitudes de grupos:
         [multiplo][grupo][multiplo][grupo][multiplo][grupo]...
-        El principal error a dectectar es el incorrecto orden de los
+        El principal error a detectar es el incorrecto orden de los
         [multiplos]
         """
         pass
