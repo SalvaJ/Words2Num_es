@@ -7,7 +7,7 @@
 # This code is open source according to the BSD (2 clause) License.
 #
 # Copyright (c) 2014 Salva Jimenez.
-
+# version: 0.1 alfa
 
 unidades = {
     "cero": 0,
@@ -70,14 +70,16 @@ centenas = {
 multiplos = {
     "mil": 1,
     "millón": 2, "millon": 2, "millones": 2,
-    "billón": 3, "billon": 3, "billones": 3
+    "billón": 3, "billon": 3, "billones": 3,
+    "trillón": 4, "trillon": 4, "trillones": 4
 }
 
 multiplicadores = {
     0: 10 ** 0,
     1: 10 ** 3,
     2: 10 ** 6,
-    3: 10 ** 12
+    3: 10 ** 12,
+    4: 10 ** 18
 }
 
 conjuncion = {"y": 1}   # TODO handle "y" between "decenas" and "unidades"
@@ -113,7 +115,8 @@ def words2num(string_to_convert, debug_mode=0):
         import logging
 
         FORMAT = '%(levelname)s %(message)s'
-        logging.basicConfig(filename='w2n_debug.log', level=logging.DEBUG, format=FORMAT)
+        logging.basicConfig(filename='w2n_debug.log', level=logging.DEBUG,
+                            format=FORMAT)
 
     def debug(func):
         def _debug(msg):
@@ -191,8 +194,12 @@ def words2num(string_to_convert, debug_mode=0):
         grupo(palabra)
     cifra_total[indice_multiplos] = cifra_grupo
     echo(cifra_total)  # debug purpose
+
     for i, j in cifra_total.items():
-        cifra_numero += j * multiplicadores[i]
+        if i == 1:
+            cifra_numero += (j or 1) * multiplicadores[i]
+        else:
+            cifra_numero += j * multiplicadores[i]
     return cifra_numero
 
 if __name__ == "__main__":

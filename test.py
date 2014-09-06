@@ -27,7 +27,7 @@ class TestW2n(unittest.TestCase):
             ...
         """
 
-        self.lista_correctos_masculinos = [n2t.numerals(numero) for numero in range(0, 1000)]
+        self.lista_correctos_masculinos = [n2t.numerals(numero) for numero in range(0, 1000000)]
 
         self.lista_errores_palabras = [
             "venticuatro",

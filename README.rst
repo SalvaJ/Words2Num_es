@@ -22,7 +22,7 @@ EJEMPLO:
 STATUS:
 =======
 - Se encuentra en pleno desarrollo.
-- Debido a alguno de sus errores conocidos, ni siquiera está en condiciones de llamarse versión *alfa*.
+- Debido a sus errores conocidos esta versión es *alfa*.
 
 REQUISITOS:
 ===========
@@ -54,9 +54,6 @@ CARACTERÍSTICAS:
 
 ERRORES CONOCIDOS:
 ==================
-- La ausencia de un grupo significativo no multiplicador delante del *"mil"* omite su cómputo.
-	- *mil novecientos setenta -> 970*
-	- *un millón mil -> 1000000*
 - Las magnitudes a partir de *"mil millones"* no funcionan.
 
 ALGORITMO:
